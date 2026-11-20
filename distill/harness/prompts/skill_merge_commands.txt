@@ -1,0 +1,1 @@
+Commands that can run together go into one script, run in a single exec call.

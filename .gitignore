@@ -1,0 +1,12 @@
+.env
+.venv/
+wandb/
+__pycache__/
+*.pyc
+data/
+data_cap35/
+mediastorm_livestream/
+distill_data/
+logs/
+runs/*
+!runs/ablation/

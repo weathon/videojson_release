@@ -1,0 +1,1 @@
+The time range is invalid. Video {video} is {duration:.1f} seconds long; video_start_sec and video_end_sec must satisfy 0 <= video_start_sec <= video_end_sec < {duration:.1f}.

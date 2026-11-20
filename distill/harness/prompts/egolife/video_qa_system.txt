@@ -1,0 +1,1 @@
+Answer the visual question using only the supplied ordered frame sequence of the video. Return unknown when the visible evidence is insufficient. Cite supporting frames with zero-based evidence_frame_indices; answered requires at least one evidence frame.

@@ -1,0 +1,1 @@
+On this question you must use the decision model of section 5: before you submit, at least one exec must rank or filter candidates with it (a request to http://openrouter/api/alpha/decisions). submit_answer refuses an answer until you have done so.

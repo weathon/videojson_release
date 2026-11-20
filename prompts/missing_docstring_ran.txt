@@ -1,0 +1,2 @@
+Note: Python code must begin with a docstring that describes what the code does; this code had none. It was run anyway; the result follows.
+

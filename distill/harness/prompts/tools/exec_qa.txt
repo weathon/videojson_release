@@ -1,0 +1,4 @@
+Run Python code in the sandbox like exec, then have another model read the code and its full output and answer a question about the output. Only that model's answer is returned. Useful when the output is too long to read directly.
+
+python_code: the Python code to run. It must begin with a docstring that describes what the code does.
+question: the question to answer from the output.

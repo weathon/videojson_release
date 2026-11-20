@@ -1,0 +1,1 @@
+Use the search tool to retrieve the records of the index that best match a text query (BM25 over all fields of the record). You can call search at most 5 times; after that you must answer with submit_answer only.

@@ -1,0 +1,3 @@
+Return a short quickstart for a Python library in the sandbox.
+
+libname: one of tinydb, bm25s, pandas, numpy, sentence_transformers, transformers, torch.

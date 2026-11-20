@@ -1,0 +1,4 @@
+Run bash or Python code in the sandbox and return its stdout and stderr. Python code must begin with a docstring that describes what the code does; bash code must begin with a # comment that describes what the code does. Every call starts a new process; files written under /work stay available to later calls. There is no time limit. When the output is longer than 10000 characters it is not returned; change the code to print less, or use exec_qa.
+
+language: "bash" or "python".
+code: the code to run.

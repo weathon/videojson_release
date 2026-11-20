@@ -1,0 +1,15 @@
+{
+ "unknown_day": "Unknown day {day}; days are {days}",
+ "after_question_day": "{day} is after the question time {question_time}; its footage is not available",
+ "bad_interval": "The interval must be finite, non-negative and increasing",
+ "after_question_time": "Footage after the question time {question_time} is not available; on {day} end_s can be at most tick {limit:.2f}",
+ "too_long": "video_qa rejects intervals longer than 20 minutes",
+ "bad_fps": "fps must be positive",
+ "fps_too_high": "fps can be at most 0.5",
+ "too_many_frames": "The sampling gives {count} frames; at most 650 are allowed",
+ "out_of_context": "The vision model ran out of context with {count} frames ({prompt_tokens} prompt tokens) and gave no answer; ask about a shorter interval or with a lower fps",
+ "too_many_images": "The vision model's provider rejected the request because {count} frames are more images than it accepts, and gave no answer; ask about a shorter interval or with a lower fps",
+ "no_evidence": "The vision model answered without evidence frames; ask again",
+ "bad_evidence": "The vision model cited frames outside the sampled sequence; ask again",
+ "no_answer": "The vision model returned no answer; ask again"
+}

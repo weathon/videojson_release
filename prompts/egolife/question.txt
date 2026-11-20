@@ -1,0 +1,6 @@
+Wearer: {name}
+Question time: {day} {time}
+Question: {question}
+Options:
+{options}
+These are the only options. The correct answer might not be exactly any of them; choose the one that is closest.

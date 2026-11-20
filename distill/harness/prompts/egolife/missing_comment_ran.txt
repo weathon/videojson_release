@@ -1,0 +1,2 @@
+Note: bash code must begin with a # comment that describes what the code does; this code had none. It was run anyway; the result follows.
+

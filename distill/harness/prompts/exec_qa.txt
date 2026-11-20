@@ -1,0 +1,9 @@
+Answer the question using the output of the Python code below.
+
+Code:
+{code}
+
+Output:
+{output}
+
+Question: {question}

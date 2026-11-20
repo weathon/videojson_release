@@ -1,0 +1,6 @@
+Ask another model a question about one video. n_frames frames are taken at evenly spaced times from video_start_sec to video_end_sec, including both ends, at the original resolution. The model sees only these frames, each labeled with its time, and no audio. Its answer is returned.
+
+video: the video number, "1" to "23".
+video_start_sec, video_end_sec: start and end of the range in seconds within that video; every video starts at 0.
+n_frames: the number of frames, at most 60.
+question: the question to ask about the frames.

@@ -1,0 +1,133 @@
+{
+  "type": "object",
+  "description": "Caption of one minute of video.",
+  "additionalProperties": false,
+  "required": [
+    "dense_caption",
+    "events",
+    "unexpected",
+    "entities",
+    "places",
+    "actions",
+    "relations",
+    "transcription",
+    "explanation",
+    "on_screen_text",
+    "mood"
+  ],
+  "properties": {
+    "dense_caption": {
+      "type": "string",
+      "description": "A detailed description of what is in the minute, in time order."
+    },
+    "events": {
+      "type": "array",
+      "description": "What happens in the minute, one entry per occurrence, in time order, for example someone walks in.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["start_s", "end_s", "type", "who", "description"],
+        "properties": {
+          "start_s": {"type": ["integer", "null"], "description": "Second 0-59 when it starts; null if unknown."},
+          "end_s": {"type": ["integer", "null"], "description": "Second 0-59 when it ends; null if unknown."},
+          "type": {"type": "string", "description": "Kind of event, a free string, for example arrive, leave, talk, buy, eat, fight, pick_up, phone_call."},
+          "who": {"type": ["string", "null"], "description": "Who does it; null if nobody or unknown."},
+          "description": {"type": "string", "description": "What happens."}
+        }
+      }
+    },
+    "unexpected": {
+      "type": "array",
+      "description": "Surprising or striking things that would catch a viewer's attention, for example someone disappears, something breaks, a sudden reveal.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["start_s", "description"],
+        "properties": {
+          "start_s": {"type": ["integer", "null"], "description": "Second 0-59 when it happens; null if unknown."},
+          "description": {"type": "string", "description": "What is surprising or striking."}
+        }
+      }
+    },
+    "entities": {
+      "type": "array",
+      "description": "Important people, characters, animals and objects, with their description and state.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "type", "description", "state"],
+        "properties": {
+          "name": {"type": "string", "description": "Name as shown or said, or a short description if unnamed."},
+          "type": {"type": "string", "description": "Kind of entity, a free string, for example person, character, animal, object, food, vehicle, device."},
+          "description": {"type": "string", "description": "Appearance and other details that identify it."},
+          "state": {"type": ["string", "null"], "description": "Its current state, for example full, broken, open, wearing a red coat, injured; null if nothing notable."}
+        }
+      }
+    },
+    "places": {
+      "type": "array",
+      "description": "Where the minute takes place, one entry per place.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "description"],
+        "properties": {
+          "name": {"type": ["string", "null"], "description": "Name of the place as shown or said; null if unnamed."},
+          "description": {"type": "string", "description": "What the place is and looks like."}
+        }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "description": "Actions under way in the minute, each as a hierarchy from the overall activity down to the current step, for example making dinner, then chopping onions.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["who", "hierarchy"],
+        "properties": {
+          "who": {"type": ["string", "null"], "description": "Who does it; null if unknown."},
+          "hierarchy": {"type": "array", "description": "From the top-level activity to the most specific current action.", "items": {"type": "string"}}
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "description": "Relations shown or said, for example who owns what or who is whose sister.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["subject", "relation", "object"],
+        "properties": {
+          "subject": {"type": "string"},
+          "relation": {"type": "string", "description": "A free string, for example owns, sister_of, works_at, friend_of."},
+          "object": {"type": "string"}
+        }
+      }
+    },
+    "transcription": {
+      "type": ["string", "null"],
+      "description": "The speech of the minute, cleaned and corrected, in its original language; null if nobody speaks."
+    },
+    "explanation": {
+      "type": "string",
+      "description": "Why this minute is recorded: its purpose or role in the whole video."
+    },
+    "on_screen_text": {
+      "type": "array",
+      "description": "Legible text in the frames, copied exactly.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text", "where"],
+        "properties": {
+          "text": {"type": "string", "description": "The text exactly as shown."},
+          "where": {"type": "string", "description": "Where the text appears, for example sign, subtitle, phone screen, menu."}
+        }
+      }
+    },
+    "mood": {
+      "type": ["string", "null"],
+      "description": "Emotion or atmosphere of the minute, for example happy, tense, sad, calm; null if not clear."
+    }
+  }
+}

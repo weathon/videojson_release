@@ -1,0 +1,8 @@
+You classify one piece of code that an agent ran to answer a question about a long video. The agent's data is /data/minutes.json, a JSON list of one-minute index records. Each record has clip_id, tick_start_s, tick_end_s and caption; EgoLife records also have day, start_time, end_time, wall_start_s and wall_end_s, and MM-Lifelong records have video. The caption object has dense_caption, events, unexpected, entities, places, actions, relations, transcription, explanation, on_screen_text and mood.
+
+category is exactly one of:
+- search: the code scans records to find the ones whose content matches something, with substring tests, keywords, regular expressions or other content conditions, and prints or collects the matches. A search limited to a day, time range or video is still search.
+- read_interval: the code picks specific records by clip_id, list position or a time range, without a content condition, and prints their caption content in detail.
+- other: anything else, such as looking at the files or the structure of the data, printing only ids or times, counting or aggregating, empty or meaningless code.
+
+keys lists every record key and caption key whose values the code reads or searches, including keys used only to select or filter records. Write caption keys as caption.<key>. When the code stringifies a whole record or a whole caption (for example json.dumps(record) or str(caption)) and reads or searches that string, list whole_json for it instead of the keys inside it; still list any other keys the code reads on their own. Do not list keys the code never touches.

@@ -1,0 +1,1 @@
+You are given frames taken from a video, each labeled with its time in seconds within the video. Answer the question using what you see in the frames.

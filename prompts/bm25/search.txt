@@ -1,0 +1,1 @@
+Search the video index with BM25 and return the top_k best-matching records as a JSON list, best match first. When the result is longer than 36000 characters it is not returned; use a smaller top_k. Such a call does not count toward your 5 searches.

@@ -1,0 +1,46 @@
+General
+
+Call 1: for 3-5 distinctive question words (object, action, name, option strings; never abstract words) print only hit counts per video or day and record ids, over all caption fields. The rarest term fixes the video or day and a run of minutes; search only there afterwards.
+
+Print little: counts and ids, 150-300 character snippets, then sliced fields for at most 8 consecutive minutes. An output over 36,000 characters is not returned; rerun it narrower.
+
+Question wording is often loose. After one failed literal search, try fragments, synonyms and the question's other descriptors; list candidate entities with minute ranges; keep the one meeting every clue. Zero hits never proves absence.
+
+Match field to fact. Speech: full transcription of the hit minute and two neighbours each side. Names, numbers, labels: on-screen text. Order inside a minute: events. Outcomes and "the first session after X": hour summaries.
+
+If a scene can recur, list all occurrences in time order and test each against every qualifier (ordinal, "in the end", before/after X); never just the first or most dramatic one. Number instances yourself; search the ordinal word only in the transcription, where a speaker's own use of it decides.
+
+Budget: a turn costs one call. Locate by call 8. No candidate by call 12: change method (structured fields, one speaker's lines, exec_qa for verbatim quotes with record ids), not more keyword variants. Submit once a verbatim line or on-screen string states the answer, or two independent sources agree. Stop exploring at call 22; never let the budget force the submission.
+
+Answer. Lettered options: submit only the letter of the closest option; the wording rules below are for open answers. Open answer: direct answer first in the question's terms, then 1-3 sentences of evidence with a quote. Answer every part. Give names as shown or spoken plus a short description. A second candidate goes in a trailing parenthesis. No unchecked denials.
+
+By question type
+
+How many
+Prefer a stated number: an on-screen counter or result screen (final value, or end minus start inside exactly the asked span) or a count spoken in the transcription (what was performed, not the announced target).
+"How many more after X" excludes X. Lead with the count for the instance the qualifier selects, others in parentheses. One figure, digits verbatim.
+
+Why or how
+The reason is usually spoken within two minutes of the action: quote the actor's words, with every clause and every contributing cause.
+Origin of an object or mark: trace back to its earliest appearance, including an earlier session of the same occasion.
+
+Who or which
+"The first ... in X": list candidates from the first minute of the session containing X.
+An entity the question names as context is not the answer; test each candidate on the distinguishing property.
+
+What happened or keeps being done
+Bound the window, extend it 2 minutes past its end, list unexpected entries and events of every minute; do not search the question's adjective. Lead with the best-fitting candidate, add the others; never open with "nothing unusual".
+Habitual action: tally actions over all minutes of the period; lead with the recurring physical action.
+
+Numbered items in an open question
+Give each item its own verdict; expect two or more to hold, rarely all, often from different moments.
+Include an item only with direct evidence of the exact asked role (done, not merely shown, considered or said by someone else); a wrong inclusion costs more than an omission.
+"Which did NOT": answer with the whole complement of what was done.
+
+What was said or asked
+List every sentence containing "?" in scope, by speaker, in order; search the phrase as the speaker would say it.
+Speaker labels are unreliable: choose by content, state the recorded speaker.
+
+Change or order
+Change: answer as a chain (start, each intermediate step, final state) of concrete named things.
+Ordering: use every listed item exactly once: pair an unmatched observation with the unmatched item; never say an item did not occur.
