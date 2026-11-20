@@ -34,7 +34,7 @@ from subset_clips import OLD, ROOT, build_clips
 sys.path.insert(0, str(OLD / 'training_free'))
 from evaluate_mm_official import SYSTEM_PROMPT as RUBRIC
 
-MODEL = 'Qwen/Qwen3.5-35B-A3B-FP8'
+MODEL = 'Qwen/Qwen3.8-Flash-Next'
 PORTS = (8301,)
 QUESTIONS = OLD / 'results/vsi/questions_open.json'
 ASR = OLD / 'runs/asr-qwen3-asr-1.7b/week'

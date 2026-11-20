@@ -21,10 +21,11 @@ Artifacts:
 | `scripts/run_v5.sh` | The main-table setting on the five datasets |
 | `scripts/caption_old/` | Indexing: ASR, one-minute captions, minute index, hourly index |
 | `scripts/index_time_ours.sh`, `scripts/plot_index_time.py` | Indexing wall time |
+| `scripts/cost.py` | Score and cost per question of a run |
 | `scripts/code_analysis.py`, `scripts/plot_code_nature_ring.py`, `scripts/plot_token_pie.py` | Code and trace analysis |
 | `distill/` | Fine-tuning on VideoJSON trajectories |
 
-The code is released as it was run. Paths of the benchmarks, videos and model servers are constants in the files (`/raid/...`, `127.0.0.1:<port>`); change them to yours. `src/main.py` and most scripts end with `1 / 0` after their last line, so a finished run prints `DONE` and then exits with `ZeroDivisionError`.
+Paths of the benchmarks, videos and model servers are constants in the files (`/raid/...`, `127.0.0.1:<port>`); change them to yours. `src/main.py` and most scripts end with `1 / 0` after their last line, so a finished run prints `DONE` and then exits with `ZeroDivisionError`.
 
 ## Setup
 
@@ -58,13 +59,15 @@ python src/main.py --dataset egolifeqa --run-name main --concurrency 75 \
 | + Hourly Caption | `--no-video-qa` |
 | w/ MAGIC Index | `--no-video-qa --no-hours --magic-index <dir>` |
 | Dense Caption Only | `--no-video-qa --no-hours --dense-caption-only` |
-| BM25 Only | `--bm25 --bm25-calls` |
+| BM25 Only | `--no-video-qa --no-hours --bm25 --bm25-calls` |
 | Without exec_qa | `--no-video-qa --no-hours --no-exec-qa` |
-| Bilingual questions and options (EgoLifeQA, Ego-R1-Bench) | `--bilingual` |
+| Bilingual questions and options (every Ego-R1-Bench run; EgoLifeQA in the bilingual comparison) | `--bilingual` |
 | 200-question subset | `--keys runs/ablation/<dataset>_keys.txt` |
 | Captions by Qwen-3.5-Flash | `--data-dir data_cap35` |
 
 The Qwen policy models are run with `--temperature 1.0 --top-p 0.95 --top-k 20 --presence-penalty <value of the model card> --max-tokens 16384` and without `--reasoning-effort`.
+
+`python scripts/cost.py runs/<dataset>/<run-name> [keys file]` prints the score and the cost per question of a run at US$0.15 per million uncached input tokens, US$0.003 per million cached input tokens and US$0.60 per million output tokens.
 
 The forwarding service between the question containers and the decision model (`+ Decision API`) is not in this repository.
 
@@ -73,9 +76,9 @@ The forwarding service between the question containers and the decision model (`
 `scripts/caption_old/` holds the indexing code. It reads the videos through media maps and paths of our machines (the constants at the top of `subset_clips.py`, `harness.py` and `egolife_people.py`).
 
 1. `asr_subsets.py`: Qwen3-ASR-1.7B transcript of every one-minute clip.
-2. `caption_subset.py <day|month|week> <concurrency> --model <captioner> --ports <ports>`: one JSON caption per clip from 60 frames at 1 fps and the transcript, with the schema `prompts/egolife/vsi_caption_schema.json` and the prompt `prompts/caption/caption_prompt.txt`. `week` adds the transcripts released with EgoLife. `caption_egolife.py` captions the other EgoLife wearers.
+2. `caption_subset.py <day|month|week> <concurrency> --model <captioner> --ports <ports>`: one JSON caption per clip from 60 frames at 1 fps and the transcript, with the schema `prompts/egolife/vsi_caption_schema.json` and the prompt `prompts/caption/caption_prompt.txt`. `week` adds the transcripts released with EgoLife. `caption_egolife.py` captions the other EgoLife wearers. The default captioner is Qwen-3.8-Flash-Next; `data_cap35/` and the indexing wall time use `--model Qwen/Qwen3.5-35B-A3B-FP8`.
 3. `build_data.py`: the minute index (`data/egolife/<wearer>.json`, `data/mm_lifelong/<subset>.json`).
-4. `hoursly_index.py`, `hoursly_index_mm_lifelong.py`: the hourly index (`*_hourly.json`), used only by `+ Hourly Caption`.
+4. `hoursly_index.py`, `hoursly_index_mm_lifelong.py`: the hourly index (`*_hourly.json`), used by `+ Hourly Caption` and by `distill/harness/`.
 
 `scripts/index_time_ours.sh` times steps 1 to 3 on the first minutes of MM-Lifelong Day.
 

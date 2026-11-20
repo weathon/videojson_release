@@ -1,4 +1,4 @@
-"""Caption every one-minute clip of an MM-Lifelong subset with the generic caption schema and prompt on the local Qwen3.5-35B-A3B-FP8 vLLM server; week adds the EgoLife transcript (harness.load_week). Usage: caption_subset.py <day|month|week> <concurrency per server> [clip limit]"""
+"""Caption every one-minute clip of an MM-Lifelong subset with the generic caption schema and prompt on the vLLM servers of --ports (--model, default Qwen3.8-Flash-Next); week adds the EgoLife transcript (harness.load_week). Usage: caption_subset.py <day|month|week> <concurrency per server> [clip limit]"""
 
 import argparse
 import asyncio
@@ -27,16 +27,16 @@ parser = argparse.ArgumentParser()
 parser.add_argument('subset')
 parser.add_argument('concurrency', type=int)  # per server
 parser.add_argument('limit', type=int, nargs='?')
-# the index-time run (2026-11-15): Qwen/Qwen3.8-27B on 8303,8304, the ASR of asr_subsets.py --out, captions into a new directory
-parser.add_argument('--model', default='Qwen/Qwen3.5-35B-A3B-FP8')
+# the index-time run (2026-11-15): Qwen/Qwen3.5-35B-A3B-FP8 on 8301, the ASR of asr_subsets.py --out, captions into a new directory
+parser.add_argument('--model', default='Qwen/Qwen3.8-Flash-Next')
 parser.add_argument('--ports', default='8301')
 parser.add_argument('--asr', help='directory of <subset>/<clip_id>.json ASR files (default: the old repository)')
-parser.add_argument('--out', help='output root; captions go to <out>/<subset> (default: runs/captions/qwen3.5-35b-a3b-fp8)')
+parser.add_argument('--out', help='output root; captions go to <out>/<subset> (default: runs/captions/qwen3.8-flash-next)')
 args = parser.parse_args()
 SUBSET = args.subset
 CONCURRENCY = args.concurrency
 LIMIT = args.limit
-OUT = (Path(args.out) if args.out else ROOT / ('runs/captions/qwen3.5-35b-a3b-fp8' if LIMIT is None else 'runs/captions/qwen3.5-35b-a3b-fp8-debug')) / SUBSET
+OUT = (Path(args.out) if args.out else ROOT / ('runs/captions/qwen3.8-flash-next' if LIMIT is None else 'runs/captions/qwen3.8-flash-next-debug')) / SUBSET
 ASR = (Path(args.asr) if args.asr else OLD / 'runs/asr-qwen3-asr-1.7b') / SUBSET
 SCHEMA = json.loads((ROOT / 'prompts/egolife/vsi_caption_schema.json').read_text())
 PROMPT = (ROOT / 'prompts/caption/caption_prompt.txt').read_text()
@@ -114,7 +114,7 @@ async def main():
     clip_ids = sorted(clips, key=lambda clip_id: (clips[clip_id]['video'], clips[clip_id]['tick_start_s']))
     if LIMIT is not None:
         clip_ids = clip_ids[:LIMIT]
-    run = wandb.init(project='videojson_gym', name=f'captions-{Path(args.out).name}-{SUBSET}' if args.out else f'captions-qwen3.5-35b-a3b-fp8-{SUBSET}' + ('-debug' if LIMIT is not None else ''), id=config['wandb_id'], resume=resume, config={**config, 'clips': len(clip_ids), 'concurrency_per_server_this_launch': CONCURRENCY, 'max_tokens': MAX_TOKENS}, dir=str(OUT))
+    run = wandb.init(project='videojson_gym', name=f'captions-{Path(args.out).name}-{SUBSET}' if args.out else f'captions-qwen3.8-flash-next-{SUBSET}' + ('-debug' if LIMIT is not None else ''), id=config['wandb_id'], resume=resume, config={**config, 'clips': len(clip_ids), 'concurrency_per_server_this_launch': CONCURRENCY, 'max_tokens': MAX_TOKENS}, dir=str(OUT))
     stats = {'finished': 0, 'failed': 0, 'prompt_tokens': 0, 'completion_tokens': 0, 'caption_chars': 0, 'finished_this_launch': 0}
     for clip_id in clip_ids:
         path = OUT / 'captions' / clip_id / 'caption.json'
